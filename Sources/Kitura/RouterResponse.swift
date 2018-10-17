@@ -181,7 +181,7 @@ public class RouterResponse {
     ///
     /// - Throws: Socket.Error if an error occurred while writing to a socket.
     public func end() throws {
-        printf("End is called")
+        print("End is called")
         for symbol: String in Thread.callStackSymbols {
             print(symbol)
         }
