@@ -480,7 +480,7 @@ public class RouterResponse {
     /// - Parameter status: The HTTP status code.
     /// - Returns: This RouterResponse.
     public func send(status: HTTPStatusCode) -> RouterResponse {
-        print("Debug: Inside send function for HTTPStatusCode- \(HTTPStatusCode)")
+        print("Debug: Inside send function for HTTPStatusCode- \(status)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(status:) invoked after end() for \(self.request.urlURL)")
             return self
