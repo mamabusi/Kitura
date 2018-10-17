@@ -181,10 +181,9 @@ public class RouterResponse {
     ///
     /// - Throws: Socket.Error if an error occurred while writing to a socket.
     public func end() throws {
-        print("End is called")
-        for symbol: String in Thread.callStackSymbols {
-            print(symbol)
-        }
+        print("Debug: End is called")
+        print(Thread.callStackSymbols)
+ 
         guard !state.invokedEnd else {
             Log.warning("RouterResponse end() invoked more than once for \(self.request.urlURL)")
             return
@@ -212,6 +211,7 @@ public class RouterResponse {
         if  request.method != .head {
             try response.write(from: content)
         }
+        print("Debug:Invoked state is changed")
         state.invokedEnd = true
         try response.end()
     }
@@ -440,6 +440,7 @@ public class RouterResponse {
     /// - Returns: This RouterResponse.
     @discardableResult
     public func send(_ str: String) -> RouterResponse {
+        print("Debug: Inside send function for UTF-8 encoded string- \(str)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(str:) invoked after end() for \(self.request.urlURL)")
             return self
@@ -462,6 +463,7 @@ public class RouterResponse {
     /// - Returns: This RouterResponse.
     @discardableResult
     public func send(_ str: String?) -> RouterResponse {
+        print("Debug: Inside send function for optional String string- \(str)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(str:) invoked after end() for \(self.request.urlURL)")
             return self
@@ -478,6 +480,7 @@ public class RouterResponse {
     /// - Parameter status: The HTTP status code.
     /// - Returns: This RouterResponse.
     public func send(status: HTTPStatusCode) -> RouterResponse {
+        print("Debug: Inside send function for HTTPStatusCode- \(HTTPStatusCode)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(status:) invoked after end() for \(self.request.urlURL)")
             return self
@@ -495,6 +498,7 @@ public class RouterResponse {
     /// - Returns: This RouterResponse.
     @discardableResult
     public func send(data: Data) -> RouterResponse {
+        print("Debug: Inside send function for data- \(data)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(data:) invoked after end() for \(self.request.urlURL)")
             return self
@@ -514,6 +518,7 @@ public class RouterResponse {
     ///       If the fileName is relative, it is relative to the current directory.
     @discardableResult
     public func send(fileName: String) throws -> RouterResponse {
+        print("Debug: Inside send function for fileNamw- \(fileName)")
         guard !state.invokedEnd else {
             Log.warning("RouterResponse send(fileName:) invoked after end() for \(self.request.urlURL)")
             return self
@@ -560,6 +565,7 @@ public class RouterResponse {
         do {
             let jsonData = try JSONSerializationType.data(withJSONObject: json, options:.prettyPrinted)
             headers.setType("json")
+            print("Debug: Inside send function for JSON- \(jsonData)")
             send(data: jsonData)
         } catch {
             Log.warning("Failed to convert JSON for sending: \(error.localizedDescription)")
@@ -584,6 +590,7 @@ public class RouterResponse {
         do {
             let jsonData = try JSONSerializationType.data(withJSONObject: json, options:.prettyPrinted)
             headers.setType("json")
+            print("Debug: Inside send function for UTF-8 dictionary- \(jsonData)")
             send(data: jsonData)
         } catch {
             Log.warning("Failed to convert JSON for sending: \(error.localizedDescription)")
