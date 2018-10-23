@@ -23,7 +23,7 @@ import Foundation
 var kituraNetPackage: Package.Dependency
 
 if ProcessInfo.processInfo.environment["KITURA_NIO"] != nil {
-    kituraNetPackage = .package(url: "https://github.com/IBM-Swift/Kitura-NIO.git", .branch("openssl"))
+    kituraNetPackage = .package(url: "https://github.com/mamabusi/Kitura-NIO.git", .branch("openssl"))
 } else {
     kituraNetPackage = .package(url: "https://github.com/IBM-Swift/Kitura-net.git", from: "2.1.0")
 }
